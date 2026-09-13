@@ -74,8 +74,15 @@ async function createUserDocument(uid, email) {
 }
 
 async function fetchUserDocument(uid) {
-  const snapshot = await getDoc(doc(db, "users", uid));
-  return snapshot.exists() ? snapshot.data() : null;
+  try {
+    const snapshot = await getDoc(doc(db, "users", uid));
+    console.log("DEBUG snapshot.exists():", snapshot.exists());
+    console.log("DEBUG snapshot.id:", snapshot.id);
+    return snapshot.exists() ? snapshot.data() : null;
+  } catch (error) {
+    console.error("DEBUG fetchUserDocument error:", error.code, error.message);
+    return null;
+  }
 }
 
 async function handleLogin(event) {
