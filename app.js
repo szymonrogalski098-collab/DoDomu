@@ -106,6 +106,7 @@ async function handleLogout() {
 
 async function routeSignedInUser(user) {
   const userRecord = await fetchUserDocument(user.uid);
+  console.log("DEBUG userRecord:", userRecord);
   if (userRecord && userRecord.approved === true) {
     showView("view-app");
   } else {
